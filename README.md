@@ -11,8 +11,11 @@ All data from not CSH auth also needs to go here
 `source .venv\bin\activate`  
 `pip install -r requirements.txt`
 
+### Set the env
+`cp .env.example .env`
+
 ### Run the guy
-`flask --app fcwebapp run`
+`docker compose up --watch --build`
 
 ## Navbar
 This should have "TIME TIL FALL CAMPING" which counts down to when the rideboard is started.
