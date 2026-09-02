@@ -86,7 +86,7 @@ def sleeping_board_post(user: UserInfo):
                 user.occupying_uuid = new_uuid
                 update_user(user)
             elif sleeptype == "tent":
-                add_tent(Tent(new_uuid, name=occupying, capacity=int(capacity)))
+                add_tent(Tent(new_uuid, name=occupying, capacity=int(capacity) if capacity else 1))
         case "join":
             occupying = uuid.UUID(occupying)
             if sleeptype != "tent" or occupying not in tents.keys():
