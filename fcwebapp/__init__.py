@@ -153,5 +153,9 @@ def profile_edit(user: UserInfo):
         update_user(user)
     return redirect('/profile', code=302)
 
+@app.route('/logout')
+@auth.oidc_logout
+def logout():
+    return redirect("/", 302)
 
 init_db()

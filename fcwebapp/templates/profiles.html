@@ -2,40 +2,49 @@
 
 {% block body %}
 <style>
-    .profile-name {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 15px;
-        color: black
-    }
-
-    .user-data {
-        font-size: 18px;
-        color: black
-    }
 </style>
 <div class="row">
     <div class="col-md-6">
         <div class="card mb-3">
+            <div class="card-header">
+                <h4 class="my-0 card-title">
+                    {{ user.first_name }}'s Profile
+                </h4>
+            </div>
             <div class="card-body">
-                <div class="profile-name">{{ user.first_name }}'s Profile</div>
                 <div class="user-data"><span>Full Name: </span>{{ user.name }}</div>
                 <div class="user-data"><span>Username: </span>{{ user.username }}</div>
                 <div class="user-data"><span>Phone Number: </span>{{ user.phone_number }}</div>
-                <form class="form-inline" action="/profile/edit" method="POST">
-                    <label for="phone_number">Update/Add Number</label>
-                    <input class="form-control" type="text" id="phone_number" name="phone_number"
-                        placeholder="123-456-7890">
-                    <button class="text-primary form-control material-icons-outlined" type="submit">assignment
-                    </button>
+                <form class="mb-2" action="/profile/edit" method="POST">
+                    {% if user.phone_number is not defined %}
+                    <label class="form-label" for="phone_number">Add Number</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="phone_number" name="phone_number"
+                            placeholder="123-456-7890">
+                        <button class="btn btn-outline-primary material-icons-outlined" type="submit">
+                            assignment
+                        </button>
+                    </div>
+                    {% else %}
+                    <label class="form-label" for="phone_number">Update Number</label>
+                    <div class="input-group">
+                        <input class="form-control" type="text" id="phone_number" name="phone_number"
+                            value={{ user.phone_number }}>
+                        <button class="btn btn-outline-primary material-icons-outlined" type="submit">
+                            assignment
+                        </button>
+                    </div>
+                    {% endif %}
                 </form>
                 <div class="user-data"><span>Email: </span>{{ user.email }}</div>
                 <div class="user-data"><span>In Sleeping Board? </span>{{ user.occupying_uuid != None }}</div>
                 <div class="user-data"><span>In Ride Board? </span>{{ user.in_ride }}</div>
-                <form action="/profile/edit" method="POST">
-                    <input type="checkbox" name="in_ride_toggle" value={{"off" if user.in_ride else "on" }} <input
-                        class="form-control" type="checkbox" id="in_ride_toggle" name="in_ride_toggle" value="on"
-                        onchange="this.form.submit()">
+
+                <form class="mt-2" action="/profile/edit" method="POST">
+                    <input type="submit" name="in_ride_toggle"
+                        class="btn {{ 'btn-danger' if user.in_ride else 'btn-success' }}"
+                        id="in_ride_toggle" name="in_ride_toggle" value="{{ 'I didn\'t join rideboard ):' if user.in_ride else 'I joined rideboard!' }}"
+                        onclick="this.form.submit()">
                 </form>
             </div>
         </div>

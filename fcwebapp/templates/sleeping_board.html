@@ -2,100 +2,102 @@
 
 {% block body %}
 <h1>Sleeping Board</h1>
-<h2>Put yourself in a tent, or add your own tent / hammock!</h2>
-<div style="height: 10vh"></div>
-<h2>Tents</h2>
-<table class="table table-striped-columns">
+<h4>Put yourself in a tent, or add your own tent / hammock!</h4>
+<hr />
+<h2 class="mt-3">Tents</h2>
+<table class="table table-striped">
     <thead>
-    <tr>
-        <th>
-            Tent Name
-        </th>
-        <th class="col-sm-2">
-            Tent Capacity
-        </th>
-        <th>
-            Occupants
-        </th>
-        <th class="col-sm-1">
-        </th>
-    </tr>
+        <tr>
+            <th>
+                Tent Name
+            </th>
+            <th class="col-sm-2">
+                Tent Capacity
+            </th>
+            <th>
+                Occupants
+            </th>
+            <th class="col-sm-1">
+            </th>
+        </tr>
     </thead>
     <tbody>
-    {% for tent in tents %}
-    <tr>
-        <td>{{tent.name}}</td>
-        <td>{{len(tent.occupants)}}/{{tent.capacity}}</td>
-        <td>
-            {% for member in tent.occupants %}
-            <a href="#" class="member text-secondary">{{member.name}}</a>,
-            {% endfor %}
-        </td>
-        {% if user.occupying_uuid == None and len(tent.occupants) < tent.capacity %}
-        <td class="text-right">
-            <form class="form-inline" method="post">
-                <input type="text" name="sleeptype" hidden value="tent">
-                <input type="text" name="action" hidden value="join">
-                <input type="text" name="occupying" hidden value="{{tent.uuid}}">
-                <label class="align-middle">Join</label>
-                <button style="height: unset"
-                        class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
-                    add_circle
-                </button>
-            </form>
-        </td>
-        {% elif user.occupying_uuid == tent.uuid %}
-        <td class="text-right">
-            <form class="form-inline" method="post">
-                <input type="text" name="sleeptype" hidden value="tent">
-                <input type="text" name="action" hidden value="leave">
-                <input type="text" name="occupying" hidden value="{{tent.uuid}}">
-                <label class="align-middle">Leave</label>
-                <button style="height: unset"
-                        class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
-                    do_not_disturb_on
-                </button>
-            </form>
-        </td>
-        {% else %}
-        <td class="text-right">
-
-        </td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-    <tr>
-        <form class="form-inline" method="post">
-            <input type="text" name="sleeptype" hidden value="tent">
-            <input type="text" name="action" hidden value="add">
-            <td class="py-0">
-                <label for="new-tent-name" hidden>New Tent</label>
-                <input id="new-tent-name" name="occupying" class="form-control text-secondary"
-                       type="text" placeholder="Add Tent Here!">
+        {% for tent in tents %}
+        <tr>
+            <td>{{tent.name}}</td>
+            <td>{{len(tent.occupants)}}/{{tent.capacity}}</td>
+            <td>
+                {% for member in tent.occupants %}
+                <a href="#" class="member text-secondary">{{member.name}}</a>,
+                {% endfor %}
             </td>
-            <td class="py-0">
-                <label for="new-tent-cap" hidden>Capacity</label>
-                <input id="new-tent-cap" name="capacity" type="number"
-                       class="form-control w-auto text-secondary" min="1" max="99"
-                       placeholder="1">
+            {% if user.occupying_uuid == None and len(tent.occupants) < tent.capacity %}
+            <td class="text-right">
+                <form class="form-inline" method="post">
+                    <input type="text" name="sleeptype" hidden value="tent">
+                    <input type="text" name="action" hidden value="join">
+                    <input type="text" name="occupying" hidden value="{{tent.uuid}}">
+                    <label class="align-middle">Join</label>
+                    <button style="height: unset"
+                            class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
+                        add_circle
+                    </button>
+                </form>
             </td>
-            <td class="py-0">
+            {% elif user.occupying_uuid == tent.uuid %}
+            <td class="text-right">
+                <form class="form-inline" method="post">
+                    <input type="text" name="sleeptype" hidden value="tent">
+                    <input type="text" name="action" hidden value="leave">
+                    <input type="text" name="occupying" hidden value="{{tent.uuid}}">
+                    <label class="align-middle">Leave</label>
+                    <button style="height: unset"
+                            class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
+                        do_not_disturb_on
+                    </button>
+                </form>
+            </td>
+            {% else %}
+            <td class="text-right">
 
             </td>
-            <td class="">
-                <span class="align-middle">Add</span>
-                <button style="height: unset"
-                        class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
-                    add_circle
-                </button>
-            </td>
-        </form>
-    </tr>
+            {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+            <form class="form-inline" method="post">
+                <input type="text" name="sleeptype" hidden value="tent">
+                <input type="text" name="action" hidden value="add">
+                <td class="py-0">
+                    <label for="new-tent-name" hidden>New Tent</label>
+                    <input id="new-tent-name" name="occupying" class="form-control text-secondary"
+                           type="text" placeholder="Add Tent Here!">
+                </td>
+                <td class="py-0">
+                    <label for="new-tent-cap" hidden>Capacity</label>
+                    <input id="new-tent-cap" name="capacity" type="number"
+                           class="form-control w-auto text-secondary" min="1" max="99"
+                           placeholder="1">
+                </td>
+                <td class="py-0">
+
+                </td>
+                <td class="">
+                    <span class="align-middle">Add</span>
+                    <button style="height: unset"
+                            class="material-icons-outlined form-control w-auto custom-control-inline align-middle m-0 p-0">
+                        add_circle
+                    </button>
+                </td>
+            </form>
+        </tr>
     </tbody>
 </table>
 
+<hr />
+
 <h2>Hammocks</h2>
-<table class="table table-striped-columns">
+<table class="table table-striped">
     <thead>
     <tr>
         <th>
