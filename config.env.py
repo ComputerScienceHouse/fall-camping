@@ -19,3 +19,4 @@ GGL_OIDC_CLIENT_SECRET = environ.get("GGL_OIDC_CLIENT_SECRET", "b")
 
 # postgres
 DATABASE_URI = environ.get("DATABASE_URI", "")
+

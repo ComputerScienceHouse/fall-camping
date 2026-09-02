@@ -54,7 +54,6 @@ def home(user: UserInfo):
 @app.route("/sleeping_board")
 @needs_auth
 def sleeping_board(user: UserInfo):
-    print(user)
     return render_template(
         "sleeping_board.html",
         title="Sleeping Board",
